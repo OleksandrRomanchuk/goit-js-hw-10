@@ -14,6 +14,9 @@ const DEBOUNCE_DELAY = 300;
 inputEl.addEventListener('input', debounce(sendRequest, DEBOUNCE_DELAY));
 
 function sendRequest(event) {
+  cleanUpEl(searchingResultsList);
+  cleanUpEl(finalResultInfo);
+
   const enteredCountryName = event.target.value.trim();
 
   if (!enteredCountryName) {
