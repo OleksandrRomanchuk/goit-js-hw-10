@@ -16,14 +16,16 @@ inputEl.addEventListener('input', debounce(sendRequest, DEBOUNCE_DELAY));
 function sendRequest(event) {
   const enteredCountryName = event.target.value.trim();
 
-  if (!enteredCountryName || enteredCountryName === '') {
+  if (!enteredCountryName) {
     cleanUpEl(searchingResultsList);
     return;
   }
 
   fetchCountries(enteredCountryName)
     .then(countriesList => {
-      console.log(countriesList);
+      console.log(
+        `We found ${countriesList.length} countries that meet the request`
+      );
       checkingLengthOfResponseAndRender(countriesList);
     })
     .catch(() => {
