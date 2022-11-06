@@ -7,39 +7,141 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: #141024;
   color: #212121;
   line-height: 1.5;
 }
 
+p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 #search-box {
+  display: block;
   font: inherit;
   padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
+  margin: 0 auto;
+
+  border-radius: 2px;
+}
+
+#search-box, .country-list__item, .country__final-result {
+  box-shadow: -2px 3px 5px 0px rgba(79, 76, 79, 1);
 }
 
 .country-list {
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  min-width: 500px;
+  
+  margin: 0 auto;
+  margin-top: 10px;
   padding: 0;
 
   list-style: none;
 }
 
 .country-list__item {
+  min-height: 17vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  border: 1px solid rgb(132, 132, 132);
+  border-radius: 2px;
+}
+
+.country-list__info-wrapper {
   display: flex;
+  align-items: flex-end;
+
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(15deg, rgba(255, 255, 255, 0.9023984593837535) 0%, rgba(255, 255, 255, 0) 80%);
+
+  transition: transform 300ms;
 }
 
-.country-list__item:not(:first-child) {
-  margin-top: 8px;
-}
-
-.country-list__flag {
-  width: 35px;
-  height: 25px;
+.country-list__info-wrapper:hover, .country-list__info-wrapper:focus {
+  transform: scale(1.03);
+  box-shadow: none;
+  outline: none;
 }
 
 .country-list__name {
   margin: 0;
-  margin-left: 8px;
+
+  font-weight: 600;
+}
+
+.country-info {
+  display: flex;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.country__final-result {
+  max-width: 700px;
+  max-height: 500px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  border-radius: 5px;
+}
+
+.country-info__wrapper {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 600px;
+  margin-left: 25px;
+  padding-top: 35px;
+}
+
+.country-info__name {
+  margin: 0;
+
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 700;
+  color: #bcbde4;
+}
+
+.country-info__categories {
+  margin: 0;
+  margin-top: 35px;
+  margin-left: 25px;
+  padding: 0;
+
+  list-style: none;
+}
+
+.country-info__item:not(:first-child) {
+  margin-top: 10px;
+}
+
+.country-info__category {
+  font-weight: 600;
+
+  color: #b3b1bc;
+}
+
+.country-info__category--value {
+  font-weight: 400;
+
+  color: #bcbde4;
 }
