@@ -24,9 +24,12 @@ p, ul {
 
 #search-box {
   display: block;
-  font: inherit;
+
+  min-width: 320px;
   padding: 8px;
   margin: 0 auto;
+
+  font: inherit;
 
   border-radius: 2px;
 }
@@ -64,6 +67,7 @@ p, ul {
   align-items: flex-end;
 
   width: 100%;
+  max-width: 260px;
   height: 100%;
   padding: 5px;
 
@@ -88,8 +92,16 @@ p, ul {
 
 .country-info {
   display: flex;
+  flex-direction: column;
+
   margin: 0 auto;
   padding: 15px;
+}
+
+.country__final-result--wrapper {
+  display: flex;
+
+  padding: 20px 0;
 }
 
 .country__final-result {

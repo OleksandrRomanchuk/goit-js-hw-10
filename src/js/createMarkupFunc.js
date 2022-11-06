@@ -22,7 +22,8 @@ function createFinalResultCardMarkup(data) {
         population,
         capital,
         languages,
-      }) => `<img class="country__final-result" src="${svg}">
+      }) => `<div class="country__final-result--wrapper">
+              <img class="country__final-result" src="${svg}">
               <div class="country-info__wrapper">
                 <p class="country-info__name">${common}</p>
                 <ul class="country-info__categories">
@@ -39,6 +40,7 @@ function createFinalResultCardMarkup(data) {
                     <p class="country-info__category">Languages:<span class="country-info__category--value"> ${languages}</span></p>
                   </li>
                 </ul>
+              </div>
               </div>`
     )
     .join('');
