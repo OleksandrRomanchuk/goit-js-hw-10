@@ -43,7 +43,6 @@ function checkingResponseAndRender(data) {
   if (data.length > 10) {
     cleanUpEl(searchingResultsList);
     cleanUpEl(finalResultInfo);
-    data.forEach(country => console.log(country.flags));
     Notify.info('Too many matches found. Please enter a more specific name.');
   }
   if (data.length >= 2 && data.length <= 10) {
@@ -110,8 +109,6 @@ function chooseCountryFromSearchList() {
   );
   countriesInfo.forEach(el => {
     el.addEventListener('click', event => {
-      // event.preventDefault();
-
       [...event.currentTarget.children].forEach(child => {
         if (child.classList.value === 'country-list__name') {
           inputEl.value = child.textContent;

@@ -105,8 +105,11 @@ p, ul {
 }
 
 .country__final-result {
-  max-width: 700px;
-  max-height: 500px;
+  min-width: 300px;
+  max-width: 600px;
+
+  min-height: 200px;
+  max-height: 450px;
 
   background-repeat: no-repeat;
   background-position: center;
