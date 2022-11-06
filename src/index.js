@@ -29,7 +29,7 @@ function sendRequest(event) {
       console.log(
         `We found ${countriesList.length} countries that meet the request`
       );
-      checkingLengthOfResponseAndRender(countriesList);
+      checkingResponseAndRender(countriesList);
     })
     .catch(() => {
       cleanUpEl(searchingResultsList);
@@ -39,15 +39,17 @@ function sendRequest(event) {
     });
 }
 
-function checkingLengthOfResponseAndRender(data) {
+function checkingResponseAndRender(data) {
   if (data.length > 10) {
     cleanUpEl(searchingResultsList);
     cleanUpEl(finalResultInfo);
+    data.forEach(country => console.log(country.flags));
     Notify.info('Too many matches found. Please enter a more specific name.');
   }
   if (data.length >= 2 && data.length <= 10) {
     cleanUpEl(finalResultInfo);
     renderItems(searchingResultsList, createListItemsMarkup, data);
+    chooseCountryFromSearchList();
   }
   if (data.length === 1) {
     cleanUpEl(searchingResultsList);
@@ -97,4 +99,30 @@ function changeFormatOfLanguages(data) {
   });
 
   data[0].languages = languages;
+}
+
+function chooseCountryFromSearchList() {
+  Notify.success(
+    'Select the required country from the list below or continue to enter the name.'
+  );
+  const countriesInfo = document.querySelectorAll(
+    '.country-list__info-wrapper'
+  );
+  countriesInfo.forEach(el => {
+    el.addEventListener('click', event => {
+      // event.preventDefault();
+
+      [...event.currentTarget.children].forEach(child => {
+        if (child.classList.value === 'country-list__name') {
+          inputEl.value = child.textContent;
+          cleanUpEl(searchingResultsList);
+          fetchCountries(child.textContent).then(data => {
+            changeFormatOfLanguages(data);
+            changeFormatOfPopulation(data);
+            renderItems(finalResultInfo, createFinalResultCardMarkup, data);
+          });
+        }
+      });
+    });
+  });
 }
