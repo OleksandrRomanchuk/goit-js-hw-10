@@ -48,7 +48,7 @@ function checkingResponseAndRender(data) {
   if (data.length >= 2 && data.length <= 10) {
     cleanUpEl(finalResultInfo);
     renderItems(searchingResultsList, createListItemsMarkup, data);
-    chooseCountryFromSearchList();
+    chooseCountryFromSearchList(searchingResultsList);
   }
   if (data.length === 1) {
     cleanUpEl(searchingResultsList);
@@ -104,26 +104,44 @@ function changeFormatOfLanguages(data) {
   }
 }
 
-function chooseCountryFromSearchList() {
+function chooseCountryFromSearchList(parentElement) {
   Notify.success(
     'Select the required country from the list below or continue to enter the name.'
   );
-  const countriesInfo = document.querySelectorAll(
-    '.country-list__info-wrapper'
-  );
-  countriesInfo.forEach(el => {
-    el.addEventListener('click', event => {
-      [...event.currentTarget.children].forEach(child => {
-        if (child.classList.value === 'country-list__name') {
-          inputEl.value = child.textContent;
-          cleanUpEl(searchingResultsList);
-          fetchCountries(child.textContent).then(data => {
-            changeFormatOfLanguages(data);
-            changeFormatOfPopulation(data);
-            renderItems(finalResultInfo, createFinalResultCardMarkup, data);
-          });
-        }
-      });
-    });
+
+  parentElement.addEventListener('click', getSelectedCountry);
+}
+
+function checkEventNode(event) {
+  if (event.target.nodeName !== 'A' && event.target.nodeName !== 'P') {
+    return;
+  }
+}
+
+function fetcSelectedCountry(text) {
+  fetchCountries(text).then(data => {
+    changeFormatOfLanguages(data);
+    changeFormatOfPopulation(data);
+    renderItems(finalResultInfo, createFinalResultCardMarkup, data);
   });
+}
+
+function getSelectedCountry(event) {
+  checkEventNode(event);
+
+  if (event.target.nodeName === 'A') {
+    [...event.target.children].forEach(child => {
+      if (child.classList.value.includes('country-list__name')) {
+        inputEl.value = child.textContent;
+        cleanUpEl(searchingResultsList);
+        fetcSelectedCountry(child.textContent);
+      }
+    });
+  }
+
+  if (event.target.nodeName === 'P') {
+    inputEl.value = event.target.textContent;
+    cleanUpEl(searchingResultsList);
+    fetcSelectedCountry(event.target.textContent);
+  }
 }
