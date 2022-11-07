@@ -67,37 +67,41 @@ function cleanUpEl(element) {
 }
 
 function changeFormatOfPopulation(data) {
-  let populationToArray = data[0].population.toString().split('');
+  for (let i = 0; i < data.length; i += 1) {
+    let populationToArray = data[i].population.toString().split('');
 
-  if (populationToArray.length > 9) {
-    populationToArray.splice(-3, 0, ' ');
-    populationToArray.splice(-7, 0, ' ');
-    populationToArray.splice(-11, 0, ' ');
-    populationToArray = populationToArray.join('');
-    data[0].population = populationToArray;
-  }
-  if (populationToArray.length > 6 && populationToArray.length <= 9) {
-    populationToArray.splice(-3, 0, ' ');
-    populationToArray.splice(-7, 0, ' ');
-    populationToArray = populationToArray.join('');
-    data[0].population = populationToArray;
-  }
-  if (populationToArray.length > 3 && populationToArray.length <= 6) {
-    populationToArray.splice(-3, 0, ' ');
-    populationToArray = populationToArray.join('');
-    data[0].population = populationToArray;
+    if (populationToArray.length > 9) {
+      populationToArray.splice(-3, 0, ' ');
+      populationToArray.splice(-7, 0, ' ');
+      populationToArray.splice(-11, 0, ' ');
+      populationToArray = populationToArray.join('');
+      data[i].population = populationToArray;
+    }
+    if (populationToArray.length > 6 && populationToArray.length <= 9) {
+      populationToArray.splice(-3, 0, ' ');
+      populationToArray.splice(-7, 0, ' ');
+      populationToArray = populationToArray.join('');
+      data[i].population = populationToArray;
+    }
+    if (populationToArray.length > 3 && populationToArray.length <= 6) {
+      populationToArray.splice(-3, 0, ' ');
+      populationToArray = populationToArray.join('');
+      data[i].population = populationToArray;
+    }
   }
 }
 
 function changeFormatOfLanguages(data) {
   const languages = [];
 
-  Object.keys(data[0].languages).map(key => {
-    key = ` ${data[0].languages[key]}`;
-    languages.push(key);
-  });
+  for (let i = 0; i < data.length; i += 1) {
+    Object.keys(data[i].languages).map(key => {
+      key = ` ${data[i].languages[key]}`;
+      languages.push(key);
+    });
 
-  data[0].languages = languages;
+    data[i].languages = languages;
+  }
 }
 
 function chooseCountryFromSearchList() {
