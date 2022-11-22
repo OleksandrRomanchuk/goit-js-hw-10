@@ -92,15 +92,8 @@ function changeFormatOfPopulation(data) {
 }
 
 function changeFormatOfLanguages(data) {
-  const languages = [];
-
   for (let i = 0; i < data.length; i += 1) {
-    Object.keys(data[i].languages).map(key => {
-      key = ` ${data[i].languages[key]}`;
-      languages.push(key);
-    });
-
-    data[i].languages = languages;
+    data[i].languages = Object.values(data[i].languages).join(', ');
   }
 }
 
